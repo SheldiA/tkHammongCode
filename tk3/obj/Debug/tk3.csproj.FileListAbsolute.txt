@@ -1,0 +1,11 @@
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\tk3.exe.config
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\tk3.exe
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\tk3.pdb
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.csprojResolveAssemblyReference.cache
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.FormMain.resources
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.Properties.Resources.resources
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.csproj.GenerateResource.Cache
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.exe
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.pdb
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\MathOperationLibrary.dll
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\MathOperationLibrary.pdb
