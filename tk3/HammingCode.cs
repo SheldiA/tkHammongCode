@@ -70,13 +70,35 @@ namespace tk3
                 int[,] message = new int[n,1];
                 for (int i = 0; i < n; ++i)
                     message[i, 0] = (codeWord[i] == '1') ? 1 : 0;
-                int[,] res = MatrixMultiplication.Multiplicate(partityCheckMatrix, message);
-                for(int i = 0; i < r; ++i)
-                    result += (res[i,0] % 2);
+                int[,] syndrom = MatrixMultiplication.Multiplicate(partityCheckMatrix, message);
+                for(int i = r - 1; i >= 0; --i)
+                    result += (syndrom[i, 0] % 2);
+                result = CorrectErrors(result, codeWord);
             }
             return result;
         }
 
+        private string CorrectErrors(string syndrom,string incomingMess)
+        {
+            string result = "";
+
+            int errPos = Convert.ToInt32(syndrom, 2) - 1;
+            if(errPos > 0)
+            {
+                string codeWord = ConnectMessageAndPartity(incomingMess.Substring(0, k), incomingMess.Substring(k));
+                string temp = "";
+                for(int i = codeWord.Length - 1; i >= 0; --i)
+                {
+                    if (i == errPos)
+                        temp += (codeWord[i] == '1') ? '0' : '1';
+                    else
+                        temp += codeWord[i];
+                }
+                result = GetMessageFromCodeWord(Reverse(temp));
+            }
+
+            return result;
+        }
 
         private void GenerateAllPowerOfTwo()
         {
@@ -109,7 +131,7 @@ namespace tk3
             
             for(int i = 0; i < k; ++i)
             {
-                string keyWordWithoutPartity = GenerateWord(i);
+                string keyWordWithoutPartity = GenerateCodeWord(i, "");
                 for(int j = 0; j < r; ++j)
                 {
                     int partity = 0;
@@ -121,22 +143,47 @@ namespace tk3
             }
         }
 
-        private string GenerateWord(int row)
+        private string GetMessageFromCodeWord(string codeWord)
+        {
+            string res = "";
+
+            for (int i = 0; i < codeWord.Length; ++i )
+            {
+                if (!posParityNumber.Contains(i))
+                    res += codeWord[i];
+            }
+
+            return Reverse(res);
+        }
+
+        private string GenerateCodeWord(int row,string parity)
+        {
+            string message = "";
+
+            for (int i = 0; i < k; ++i)
+                message += generatorMatrix[row, i];
+
+            return ConnectMessageAndPartity(message,parity);
+        }
+
+        private string ConnectMessageAndPartity(string message,string parity)
         {
             string res = "";
             int countMess = k - 1;
-            for(int i = 0; i < n; ++i)
+            int countParity = 0;
+            for (int i = 0; i < n; ++i)
             {
                 if (!posParityNumber.Contains(i))
                 {
-                    res += generatorMatrix[row, countMess];
-                    if (countMess > 0)
-                        --countMess;
+                    res += (message.Length > countMess) ? message[countMess] : '0';
+                    --countMess;
                 }
                 else
-                    res += '0';
+                {
+                    res += (parity.Length > countParity) ? parity[countParity] : '0';
+                    ++countParity;
+                }
             }
-
 
             return res;
         }
@@ -153,6 +200,14 @@ namespace tk3
                     if (i == j)
                         partityCheckMatrix[i, j + k] = 1;
 
+        }
+
+        private string Reverse(string str)
+        {
+            string res = "";
+            for (int i = str.Length - 1; i >= 0; --i)
+                res += str[i];
+            return res;
         }
     }
 }

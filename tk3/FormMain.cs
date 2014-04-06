@@ -23,7 +23,10 @@ namespace tk3
             HammingCode hc = new HammingCode(4);
             string s = hc.GetCodeWord("1100");
             
-            string r = hc.Decode("1100000");
+            string r = hc.Decode("1000100");
+             r = hc.Decode("0100100");
+             r = hc.Decode("1110100");
+             r = hc.Decode("1101100");
         }
     }
 }
