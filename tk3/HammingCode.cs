@@ -38,6 +38,7 @@ namespace tk3
                 numb = (int)Math.Pow(2, i);
             }
             FillGeneratorMatrix();
+            FillPartityCheckMatrix();
         }
 
         public string GetCodeWord(string incomingStr)
@@ -59,6 +60,23 @@ namespace tk3
 
             return result;
         }
+
+        public string Decode(string codeWord)
+        {
+            string result = "";
+
+            if(codeWord.Length == n)
+            {
+                int[,] message = new int[n,1];
+                for (int i = 0; i < n; ++i)
+                    message[i, 0] = (codeWord[i] == '1') ? 1 : 0;
+                int[,] res = MatrixMultiplication.Multiplicate(partityCheckMatrix, message);
+                for(int i = 0; i < r; ++i)
+                    result += (res[i,0] % 2);
+            }
+            return result;
+        }
+
 
         private void GenerateAllPowerOfTwo()
         {
@@ -125,6 +143,15 @@ namespace tk3
 
         private void FillPartityCheckMatrix()
         {
+            partityCheckMatrix = new int[r,n];
+            for (int i = 0; i < r; ++i)
+                for (int j = 0; j < k; ++j)
+                    partityCheckMatrix[i, j] = generatorMatrix[j, i + k];
+
+            for (int i = 0; i < r; ++i)
+                for (int j = 0; j < r; ++j)
+                    if (i == j)
+                        partityCheckMatrix[i, j + k] = 1;
 
         }
     }

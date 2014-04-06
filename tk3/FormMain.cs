@@ -22,6 +22,8 @@ namespace tk3
         {
             HammingCode hc = new HammingCode(4);
             string s = hc.GetCodeWord("1100");
+            
+            string r = hc.Decode("1100000");
         }
     }
 }
