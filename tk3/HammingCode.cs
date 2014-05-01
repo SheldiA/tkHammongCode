@@ -28,17 +28,22 @@ namespace tk3
             n = k + r;
             GenerateAllPowerOfTwo();
 
+            FillPosParityNumber();
+            FillGeneratorMatrix();
+            FillPartityCheckMatrix();
+        }
+
+        private void FillPosParityNumber()
+        {
             posParityNumber = new List<int>();
             int i = 0;
-            int numb = (int)Math.Pow(2,i);
-            while(numb < n)
+            int numb = (int)Math.Pow(2, i);
+            while (numb < n)
             {
                 posParityNumber.Add(numb - 1);
                 ++i;
                 numb = (int)Math.Pow(2, i);
             }
-            FillGeneratorMatrix();
-            FillPartityCheckMatrix();
         }
 
         public string GetCodeWord(string incomingStr)
@@ -83,11 +88,11 @@ namespace tk3
             string result = "";
 
             int errPos = Convert.ToInt32(syndrom, 2) - 1;
-            if(errPos > 0)
+            if (errPos > 0)
             {
-                string codeWord = ConnectMessageAndPartity(incomingMess.Substring(0, k), incomingMess.Substring(k));
+                string codeWord = ConcatMessageAndPartity(incomingMess.Substring(0, k), incomingMess.Substring(k));
                 string temp = "";
-                for(int i = codeWord.Length - 1; i >= 0; --i)
+                for (int i = codeWord.Length - 1; i >= 0; --i)
                 {
                     if (i == errPos)
                         temp += (codeWord[i] == '1') ? '0' : '1';
@@ -96,7 +101,8 @@ namespace tk3
                 }
                 result = GetMessageFromCodeWord(Reverse(temp));
             }
-
+            else
+                result = incomingMess.Substring(0,k);
             return result;
         }
 
@@ -163,10 +169,10 @@ namespace tk3
             for (int i = 0; i < k; ++i)
                 message += generatorMatrix[row, i];
 
-            return ConnectMessageAndPartity(message,parity);
+            return ConcatMessageAndPartity(message,parity);
         }
 
-        private string ConnectMessageAndPartity(string message,string parity)
+        private string ConcatMessageAndPartity(string message,string parity)
         {
             string res = "";
             int countMess = k - 1;

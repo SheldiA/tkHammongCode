@@ -9,3 +9,5 @@ D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.exe
 D:\MyProjects\ProjectsC#\tk\tk3\tk3\obj\Debug\tk3.pdb
 D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\MathOperationLibrary.dll
 D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\MathOperationLibrary.pdb
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\CodeAlgorithms.pdb
+D:\MyProjects\ProjectsC#\tk\tk3\tk3\bin\Debug\CodeAlgorithms.dll

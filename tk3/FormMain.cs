@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathOperationLibrary;
 
+
 namespace tk3
 {
     public partial class FormMain : Form
     {
+        HammingCode hc;
         public FormMain()
         {
             InitializeComponent();
@@ -20,13 +22,25 @@ namespace tk3
 
         private void bt_do_Click(object sender, EventArgs e)
         {
-            HammingCode hc = new HammingCode(4);
-            string s = hc.GetCodeWord("1100");
-            
-            string r = hc.Decode("1000100");
-             r = hc.Decode("0100100");
-             r = hc.Decode("1110100");
-             r = hc.Decode("1101100");
+            string message = tb_message.Text;
+            if (rb_encode.Checked)
+            {
+                hc = new HammingCode(message.Length);
+                tb_result.Text = hc.GetCodeWord(message);
+                TriangilarCodeAlgorithm tca = new TriangilarCodeAlgorithm(message.Length);
+                tca.GetCodeWord(message);
+            }
+            else
+            {
+                if(hc != null)
+                    tb_result.Text = hc.Decode(message);
+            }
+        }
+
+        private void bt_exchange_Click(object sender, EventArgs e)
+        {
+            tb_message.Text = tb_result.Text;
+            tb_result.Text = "";
         }
     }
 }
