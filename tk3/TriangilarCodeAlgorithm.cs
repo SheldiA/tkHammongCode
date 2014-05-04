@@ -7,19 +7,14 @@ using CodeAlgorithms;
 
 namespace tk3
 {
-    class TriangilarCodeAlgorithm:ICode
+    class TriangilarCodeAlgorithm : CodeAlgorithm, ICode
     {
         private int sizeOfHigherLine;
-        private int size;
-        private int[,] generatorMatrix;
-        private int[,] partityCheckMatrix;
-        private List<int> posParityNumber;
-        private List<List<int>> parityComposition;
+        private int size;        
 
         public TriangilarCodeAlgorithm(int size)
         {
             sizeOfHigherLine = GetMaxLine(size);
-            parityComposition = new List<List<int>>();
         }
 
         private int GetMaxLine(int n)
@@ -34,12 +29,7 @@ namespace tk3
             return step;
         }
 
-        private string AlignStrByBlock(string str, int lengthBlock)
-        {
-            while (str.Length % lengthBlock != 0)
-                str = "0" + str;
-            return str;
-        }
+         
 
         public string GetCodeWord(string incomingStr)
         {
@@ -47,30 +37,13 @@ namespace tk3
             char[][] triangle = GetTriangleFromStr(incomingStr, sizeOfHigherLine);
             FillParityPos(triangle);
             FillParityComposition(triangle);
-            FillGeneratorMatrix();            
+            FillGeneratorMatrix(size, size + sizeOfHigherLine + 1);            
             int[] incomingArr = StrToIntArr(incomingStr);
             int[,] res = MathOperationLibrary.MathOperationLibrary.Multiplicate(incomingArr, generatorMatrix);
             int[] arr = new int[res.GetLength(1)];
             for (int i = 0; i < arr.Length; ++i )
                 arr[i] = res[0, i];
             return IntArrToStr(arr);
-        }
-
-        private int[] StrToIntArr(string str)
-        {
-            int[] arr = new int[str.Length];
-            for (int i = 0; i < str.Length; ++i )
-                arr[i] = (str[i] == '0') ? 0 : 1;
-                return arr;
-        }
-
-        private string IntArrToStr(int[] arr)
-        {
-            string str ="";
-
-            for (int i = 0; i < arr.Length; ++i)
-                str += (arr[i] % 2 == 0) ? "0" : "1";
-            return str;
         }
 
         private void FillParityComposition(char[][] triangle)
@@ -114,7 +87,6 @@ namespace tk3
 
         private void FillParityPos(char[][] triangle)
         {
-            posParityNumber = new List<int>();
             int strPos = 0;
             for(int i = 0; i < triangle.GetLength(0);++i)
             {
@@ -141,93 +113,13 @@ namespace tk3
             return result;
         }
 
-        private void FillGeneratorMatrix()
-        {
-            generatorMatrix = new int[size, size + sizeOfHigherLine + 1];
-            for(int i = 0; i < size; ++i)
-            {
-                int curPosMesSymb = 0;
-                for (int j = 0; j < generatorMatrix.GetLength(1); ++j)
-                {
-                    if(posParityNumber.Contains(j))
-                    {
-                        generatorMatrix[i, j] = (parityComposition[posParityNumber.IndexOf(j)].Contains(i)) ? 1 : 0;
-                    }
-                    else
-                    {
-                        generatorMatrix[i, j] = (curPosMesSymb == i) ? 1 : 0;
-                        ++curPosMesSymb;
-                    }
-                }
-            }
-        }
-
-        private void FillPartityCheckMatrix()
-        {
-            partityCheckMatrix = new int[posParityNumber.Count, size + posParityNumber.Count];
-            for(int i = 0; i < partityCheckMatrix.GetLength(0); ++i)
-            {
-                int currMesPos = 0;
-                for(int j = 0; j < partityCheckMatrix.GetLength(1); ++j)
-                {
-                    if (posParityNumber.Contains(j))
-                        partityCheckMatrix[i, j] = (posParityNumber.IndexOf(j) == i) ? 1 : 0;
-                    else
-                    {
-                        partityCheckMatrix[i, j] = (parityComposition[i].Contains(currMesPos)) ? 1 : 0;
-                        ++currMesPos;
-                    }
-                }
-            }
-            partityCheckMatrix = MathOperationLibrary.MathOperationLibrary.Transpose(partityCheckMatrix);
-        }
-
         public string Decode(string codeWord)
         {
-            FillPartityCheckMatrix();
+            FillPartityCheckMatrix(posParityNumber.Count, size + posParityNumber.Count);
             int[] codeWordArr = StrToIntArr(codeWord);
             int[,] res = MathOperationLibrary.MathOperationLibrary.Multiplicate(codeWordArr, partityCheckMatrix);
             return FixError(res,codeWord);
-        }
-
-        private string FixError(int[,] syndroms,string codeWord)
-        {
-            string res = "";
-            List<int> numbErrSydd = new List<int>();
-            int posErr = -1;
-            for (int i = 0; i < syndroms.GetLength(1); ++i)
-                if (syndroms[0, i] % 2 != 0)
-                    numbErrSydd.Add(i);
-            if(numbErrSydd.Count > 1)
-            {
-                List<int> resComp = parityComposition[numbErrSydd[0]];
-                for (int i = 1; i < numbErrSydd.Count; ++i)
-                    resComp = parityComposition[numbErrSydd[i]].Where(p => resComp.Contains(p)).ToList();
-                if(resComp.Count > 0)
-                {
-                    int pos = 0;
-                    int count = 0;
-                    while (pos < resComp[0])
-                    {
-                        if (!posParityNumber.Contains(count))
-                            ++pos;
-                        ++count;
-                    }
-                    posErr = count;
-                }
-            }
-            for (int i = 0; i < codeWord.Length; ++i)
-            {
-                if (!posParityNumber.Contains(i))
-                {
-                    if (posErr == i)
-                        res += (codeWord[i] == '1') ? '0' : '1';
-                    else
-                        res += codeWord[i];
-                }
-            }
-            return res;
-        }
+        }        
         
     }
 }

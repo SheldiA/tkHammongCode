@@ -110,7 +110,8 @@
             this.cb_chooseAlgorithm.FormattingEnabled = true;
             this.cb_chooseAlgorithm.Items.AddRange(new object[] {
             "Hamming code",
-            "Triangular code"});
+            "Triangular code",
+            "Rectangular code"});
             this.cb_chooseAlgorithm.Location = new System.Drawing.Point(139, 51);
             this.cb_chooseAlgorithm.Name = "cb_chooseAlgorithm";
             this.cb_chooseAlgorithm.Size = new System.Drawing.Size(121, 21);

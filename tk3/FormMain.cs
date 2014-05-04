@@ -14,8 +14,7 @@ namespace tk3
 {
     public partial class FormMain : Form
     {
-        HammingCode hc;
-        TriangilarCodeAlgorithm tca;
+        ICode icode;
         public FormMain()
         {
             InitializeComponent();
@@ -26,26 +25,24 @@ namespace tk3
             string message = tb_message.Text;
             if (rb_encode.Checked)
             {
-                if (cb_chooseAlgorithm.SelectedText == "Hamming code")
+                switch(cb_chooseAlgorithm.SelectedItem.ToString())
                 {
-                    hc = new HammingCode(message.Length);
-                    tb_result.Text = hc.GetCodeWord(message);
+                    case "Hamming code":
+                        icode = new HammingCode(message.Length);
+                        break;
+                    case "Triangular code":
+                        icode = new TriangilarCodeAlgorithm(message.Length);
+                        break;
+                    case "Rectangular code":
+                        icode = new RectangularCode(message.Length);
+                        break;
                 }
-                else
-                {
-                    tca = new TriangilarCodeAlgorithm(message.Length);
-                    tb_result.Text = tca.GetCodeWord(message);
-                }
+                tb_result.Text = icode.GetCodeWord(message);
             }
             else
             {
-                if (cb_chooseAlgorithm.SelectedText == "Hamming code" && hc != null)
-                    tb_result.Text = hc.Decode(message);
-                else
-                {
-                    if (tca != null)
-                        tb_result.Text = tca.Decode(message);
-                }
+                if (icode != null)
+                    tb_result.Text = icode.Decode(message);
             }
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tk3
 {
-    class HammingCode
+    class HammingCode:ICode
     {
         private int[,] generatorMatrix;
         private int[,] partityCheckMatrix;
