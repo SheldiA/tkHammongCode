@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MathOperationLibrary;
 
 namespace tk3
 {
@@ -55,7 +54,7 @@ namespace tk3
                 int[,] message = new int[1,k];
                 for (int i = 0; i < k; ++i)
                     message[0, i] = (incomingStr[i] == '0') ? 0 : 1;
-                int[,] res = MatrixMultiplication.Multiplicate(message, generatorMatrix);
+                int[,] res = MathOperationLibrary.MathOperationLibrary.Multiplicate(message, generatorMatrix);
                 if(res != null)
                     for (int i = 0; i < n; ++i)
                     {
@@ -75,7 +74,7 @@ namespace tk3
                 int[,] message = new int[n,1];
                 for (int i = 0; i < n; ++i)
                     message[i, 0] = (codeWord[i] == '1') ? 1 : 0;
-                int[,] syndrom = MatrixMultiplication.Multiplicate(partityCheckMatrix, message);
+                int[,] syndrom = MathOperationLibrary.MathOperationLibrary.Multiplicate(partityCheckMatrix, message);
                 for(int i = r - 1; i >= 0; --i)
                     result += (syndrom[i, 0] % 2);
                 result = CorrectErrors(result, codeWord);

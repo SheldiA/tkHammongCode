@@ -32,17 +32,18 @@
             this.tb_message = new System.Windows.Forms.TextBox();
             this.tb_result = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rb_encode = new System.Windows.Forms.RadioButton();
             this.rb_decode = new System.Windows.Forms.RadioButton();
+            this.rb_encode = new System.Windows.Forms.RadioButton();
             this.bt_exchange = new System.Windows.Forms.Button();
+            this.cb_chooseAlgorithm = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bt_do
             // 
-            this.bt_do.Location = new System.Drawing.Point(159, 62);
+            this.bt_do.Location = new System.Drawing.Point(266, 49);
             this.bt_do.Name = "bt_do";
-            this.bt_do.Size = new System.Drawing.Size(75, 23);
+            this.bt_do.Size = new System.Drawing.Size(75, 46);
             this.bt_do.TabIndex = 0;
             this.bt_do.Text = "Do";
             this.bt_do.UseVisualStyleBackColor = true;
@@ -52,14 +53,14 @@
             // 
             this.tb_message.Location = new System.Drawing.Point(46, 12);
             this.tb_message.Name = "tb_message";
-            this.tb_message.Size = new System.Drawing.Size(188, 20);
+            this.tb_message.Size = new System.Drawing.Size(214, 20);
             this.tb_message.TabIndex = 1;
             // 
             // tb_result
             // 
             this.tb_result.Location = new System.Drawing.Point(46, 108);
             this.tb_result.Name = "tb_result";
-            this.tb_result.Size = new System.Drawing.Size(188, 20);
+            this.tb_result.Size = new System.Drawing.Size(214, 20);
             this.tb_result.TabIndex = 2;
             // 
             // groupBox1
@@ -68,9 +69,19 @@
             this.groupBox1.Controls.Add(this.rb_encode);
             this.groupBox1.Location = new System.Drawing.Point(46, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(107, 57);
+            this.groupBox1.Size = new System.Drawing.Size(87, 57);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
+            // 
+            // rb_decode
+            // 
+            this.rb_decode.AutoSize = true;
+            this.rb_decode.Location = new System.Drawing.Point(7, 33);
+            this.rb_decode.Name = "rb_decode";
+            this.rb_decode.Size = new System.Drawing.Size(63, 17);
+            this.rb_decode.TabIndex = 1;
+            this.rb_decode.Text = "Decode";
+            this.rb_decode.UseVisualStyleBackColor = true;
             // 
             // rb_encode
             // 
@@ -84,16 +95,6 @@
             this.rb_encode.Text = "Encode";
             this.rb_encode.UseVisualStyleBackColor = true;
             // 
-            // rb_decode
-            // 
-            this.rb_decode.AutoSize = true;
-            this.rb_decode.Location = new System.Drawing.Point(7, 33);
-            this.rb_decode.Name = "rb_decode";
-            this.rb_decode.Size = new System.Drawing.Size(63, 17);
-            this.rb_decode.TabIndex = 1;
-            this.rb_decode.Text = "Decode";
-            this.rb_decode.UseVisualStyleBackColor = true;
-            // 
             // bt_exchange
             // 
             this.bt_exchange.Location = new System.Drawing.Point(12, 30);
@@ -104,11 +105,23 @@
             this.bt_exchange.UseVisualStyleBackColor = true;
             this.bt_exchange.Click += new System.EventHandler(this.bt_exchange_Click);
             // 
+            // cb_chooseAlgorithm
+            // 
+            this.cb_chooseAlgorithm.FormattingEnabled = true;
+            this.cb_chooseAlgorithm.Items.AddRange(new object[] {
+            "Hamming code",
+            "Triangular code"});
+            this.cb_chooseAlgorithm.Location = new System.Drawing.Point(139, 51);
+            this.cb_chooseAlgorithm.Name = "cb_chooseAlgorithm";
+            this.cb_chooseAlgorithm.Size = new System.Drawing.Size(121, 21);
+            this.cb_chooseAlgorithm.TabIndex = 5;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 183);
+            this.ClientSize = new System.Drawing.Size(389, 183);
+            this.Controls.Add(this.cb_chooseAlgorithm);
             this.Controls.Add(this.bt_exchange);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tb_result);
@@ -132,6 +145,7 @@
         private System.Windows.Forms.RadioButton rb_decode;
         private System.Windows.Forms.RadioButton rb_encode;
         private System.Windows.Forms.Button bt_exchange;
+        private System.Windows.Forms.ComboBox cb_chooseAlgorithm;
     }
 }
 
